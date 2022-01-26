@@ -81,13 +81,13 @@ def deleteEmployeebyId(id):
         conn.commit()
         response = jsonify('Employee deleted successfully!')
         response.status_code = 200
+        cursor.close()
+        conn.close()
     except Exception as e:
         print(e)
         response = jsonify('Failed to Delete Employee')
         response.status_code = 400
     finally:
-        cursor.close()
-        conn.close()
         return response
 
 
@@ -107,18 +107,17 @@ def updateEmployee(id):
             conn.commit()
             response = jsonify(' Employee has been updated successfully!')
             response.status_code = 200
-            return response
+            cursor.close()
+            conn.close()
         else:
             response = jsonify('Body not found for update')
             response.status_code = 400
-            return response
     except Exception as e:
         print(e)
         response = jsonify('Faild to Update')
         response.status_code = 400
     finally:
-        cursor.close()
-        conn.close()
+        
         return response
 
 
