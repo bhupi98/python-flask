@@ -97,12 +97,14 @@ def updateEmployee(id):
         _json = request.json
         _name = _json['empName']
         _email = _json['empEmail']
-        conn = mysql.connect()
-        cursor = conn.cursor()
+       
         if _name and _email and request.method == 'PUT':
+            
             sql = (
                 "UPDATE employee SET empName=%s, empEmail=%s WHERE empId=%s")
             data = (_name, _email, id)
+            conn = mysql.connect()
+            cursor = conn.cursor()
             cursor.execute(sql, data)
             conn.commit()
             response = jsonify(' Employee has been updated successfully!')
